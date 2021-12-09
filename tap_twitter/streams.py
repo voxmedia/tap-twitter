@@ -19,7 +19,10 @@ class TweetsStream(TwitterStream):
     primary_keys = ["id"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "tweets.schema.json"
+    max_results = 100
     tweet_fields: List[str] = [
+        "id",
+        "text",
         "attachments",
         "author_id",
         "context_annotations",
@@ -30,7 +33,44 @@ class TweetsStream(TwitterStream):
         "public_metrics",
     ]
 
+    def make_query(self) -> str:
+        twitter_handle = self.config.get("user_id")
+        return f"from:{twitter_handle} OR to:{twitter_handle} OR retweets_of:{twitter_handle}"
+
     def get_additional_url_params(self):
         return {
+            "max_results": self.max_results,
+            "query": self.make_query(),
             "tweet.fields": ",".join(self.tweet_fields)
+        }
+
+
+class UsersStream(TwitterStream):
+    """Define custom stream."""
+    name = "users"
+    path = "/users"
+    primary_keys = ["id"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "users.schema.json"
+    user_fields: List[str] = [
+        "id",
+        "name",
+        "username",
+        "created_at",
+        "description",
+        "entities",
+        "location",
+        "pinned_tweet_id",
+        "profile_image_url",
+        "protected",
+        "public_metrics",
+        "url",
+        "verified",
+        "withheld",
+    ]
+
+    def get_additional_url_params(self):
+        return {
+            "ids": self.config.get("user_id"),
+            "user.fields": ",".join(self.user_fields)
         }

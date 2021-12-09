@@ -7,11 +7,13 @@ from singer_sdk import typing as th  # JSON schema typing helpers
 
 from tap_twitter.streams import (
     TweetsStream,
+    UsersStream,
 )
 
 
 STREAM_TYPES = [
     TweetsStream,
+    UsersStream,
 ]
 
 
@@ -28,10 +30,10 @@ class TapTwitter(Tap):
                         "here - https://developer.twitter.com/en/docs/authentication/oauth-2-0/application-only "
         ),
         th.Property(
-            "account_handle",
+            "user_id",
             th.StringType,
             required=True,
-            description="Handle of the Twitter account"
+            description="User ID of the Twitter account"
         ),
         th.Property(
             "start_date",

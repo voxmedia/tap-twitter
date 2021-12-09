@@ -4,28 +4,18 @@ import requests
 from pathlib import Path
 from typing import Any, Dict, Optional, Union, List, Iterable
 
-from memoization import cached
-
 from singer_sdk.helpers.jsonpath import extract_jsonpath
 from singer_sdk.streams import RESTStream
 from singer_sdk.authenticators import BearerTokenAuthenticator
 
 
 SCHEMAS_DIR: Path = Path(__file__).parent / Path("./schemas")
-MAX_RESULTS: int = 100
 
 
 class TwitterStream(RESTStream):
     """Twitter stream class."""
 
     url_base: str = "https://api.twitter.com/2"
-    max_results: int = MAX_RESULTS
-
-    # OR use a dynamic url_base:
-    # @property
-    # def url_base(self) -> str:
-    #     """Return the API URL root, configurable via tap settings."""
-    #     return self.config["api_url"]
 
     records_jsonpath: str = "$.data[*]"  # Or override `parse_response`.
     next_page_token_jsonpath: str = "$.meta.next_token"  # Or override `get_next_page_token`.
@@ -44,8 +34,6 @@ class TwitterStream(RESTStream):
         headers = {}
         if "user_agent" in self.config:
             headers["User-Agent"] = self.config.get("user_agent")
-        # If not using an authenticator, you may also provide inline auth headers:
-        # headers["Private-Token"] = self.config.get("auth_token")
         return headers
 
     def get_next_page_token(
@@ -63,10 +51,6 @@ class TwitterStream(RESTStream):
 
         return next_page_token
 
-    def make_query(self):
-        twitter_handle = self.config.get("account_handle")
-        return f"from:{twitter_handle}"
-
     def get_additional_url_params(self) -> Dict:
         pass
 
@@ -74,9 +58,7 @@ class TwitterStream(RESTStream):
         self, context: Optional[dict], next_page_token: Optional[Any]
     ) -> Dict[str, Any]:
         """Return a dictionary of values to be used in URL parameterization."""
-        params: dict = {"query": self.make_query(), "max_results": self.max_results}
-        # twitter_handle = self.config.get("account_handle")
-        # params["query"] = f"from:{twitter_handle}"
+        params: dict = {}
         if next_page_token:
             params["next_token"] = next_page_token
         if self.replication_key:

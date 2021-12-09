@@ -1,0 +1,164 @@
+{
+  "type": [
+    "null",
+    "object"
+  ],
+  "properties": {
+    "created_at": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "entities": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "url": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "urls": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "start": {
+                    "type": [
+                      "null",
+                      "integer"
+                    ]
+                  },
+                  "end": {
+                    "type": [
+                      "null",
+                      "integer"
+                    ]
+                  },
+                  "url": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "expanded_url": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "display_url": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "urls": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "start": {
+                    "type": [
+                      "null",
+                      "integer"
+                    ]
+                  },
+                  "end": {
+                    "type": [
+                      "null",
+                      "integer"
+                    ]
+                  },
+                  "url": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "expanded_url": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "display_url": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "public_metrics": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "followers_count": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        },
+        "following_count": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        },
+        "tweet_count": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        },
+        "listed_count": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        }
+      }
+    }
+  }
+}
