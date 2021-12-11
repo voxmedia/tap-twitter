@@ -30,10 +30,15 @@ class TapTwitter(Tap):
                         "here - https://developer.twitter.com/en/docs/authentication/oauth-2-0/application-only "
         ),
         th.Property(
-            "user_id",
-            th.StringType,
+            "user_ids",
+            th.ArrayType(th.StringType),
             required=True,
-            description="User ID of the Twitter account"
+            description="List of user IDs of Twitter accounts for which to fetch data"
+        ),
+        th.Property(
+            "url_patterns",
+            th.ArrayType(th.StringType),
+            description="List of URL patterns for which to fetch tweets"
         ),
         th.Property(
             "start_date",

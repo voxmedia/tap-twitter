@@ -34,8 +34,14 @@ class TweetsStream(TwitterStream):
     ]
 
     def make_query(self) -> str:
-        twitter_handle = self.config.get("user_id")
-        return f"from:{twitter_handle} OR to:{twitter_handle} OR retweets_of:{twitter_handle}"
+        user_ids = self.config.get("user_ids")
+        url_patterns = self.config.get("url_patterns")
+        from_filter = " OR ".join([f"from:{user_id}" for user_id in user_ids])
+        to_filter = " OR ".join([f"to:{user_id}" for user_id in user_ids])
+        retweet_filter = " OR ".join([f"retweets_of:{user_id}" for user_id in user_ids])
+        url_filter = " OR ".join([f"url:{url_pattern}" for url_pattern in url_patterns])
+        query_elements = [from_filter, to_filter, retweet_filter, url_filter]
+        return f" OR ".join(query_elements)
 
     def get_additional_url_params(self):
         return {
@@ -71,6 +77,6 @@ class UsersStream(TwitterStream):
 
     def get_additional_url_params(self):
         return {
-            "ids": self.config.get("user_id"),
+            "ids": ",".join(self.config.get("user_ids")),
             "user.fields": ",".join(self.user_fields)
         }
