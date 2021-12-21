@@ -413,6 +413,64 @@
           ]
         }
       }
+    },
+    "expansion__author_id": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "id": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "name": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "username": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "public_metrics": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "fields": {
+            "followers_count": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            },
+            "following_count": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            },
+            "tweet_count": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            },
+            "listed_count": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            }
+          }
+        }
+      }
     }
   }
 }
