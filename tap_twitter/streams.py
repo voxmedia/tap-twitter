@@ -1,9 +1,10 @@
 """Stream type classes for tap-twitter."""
 
+import logging
 from pathlib import Path
 from typing import Any, Dict, Optional, Union, List, Iterable
 
-from singer_sdk import typing as th  # JSON Schema typing helpers
+import requests
 
 from tap_twitter.client import TwitterStream
 
@@ -32,6 +33,20 @@ class TweetsStream(TwitterStream):
         "geo",
         "public_metrics",
     ]
+    user_fields: List[str] = [
+        "id",
+        "name",
+        "username",
+        "public_metrics",
+    ]
+    expansions: List[str] = ["author_id"]
+
+    def parse_response(self, response: requests.Response) -> Iterable[dict]:
+        record = response.json()
+        users_lookup = {user["id"]: user for user in record["includes"]["users"]}
+        for i, tweet in enumerate(record["data"]):
+            tweet["expansion__author_id"] = users_lookup[tweet["author_id"]]
+            yield tweet
 
     def make_query(self) -> str:
         user_ids = self.config.get("user_ids")
@@ -52,7 +67,9 @@ class TweetsStream(TwitterStream):
         return {
             "max_results": self.max_results,
             "query": self.make_query(),
-            "tweet.fields": ",".join(self.tweet_fields)
+            "tweet.fields": ",".join(self.tweet_fields),
+            "expansions": ",".join(self.expansions),
+            "user.fields": ",".join(self.user_fields)
         }
 
 
