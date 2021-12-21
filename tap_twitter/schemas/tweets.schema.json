@@ -385,7 +385,7 @@
             "null",
             "object"
           ],
-          "fields": {
+          "properties": {
             "type": {
               "type": [
                 "null",
