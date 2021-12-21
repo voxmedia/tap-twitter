@@ -373,6 +373,46 @@
           }
         }
       }
+    },
+    "geo": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "coordinates": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "fields": {
+            "type": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "coordinates": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "place_id": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
     }
   }
 }
