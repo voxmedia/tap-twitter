@@ -443,7 +443,7 @@
             "null",
             "object"
           ],
-          "fields": {
+          "properties": {
             "followers_count": {
               "type": [
                 "null",
