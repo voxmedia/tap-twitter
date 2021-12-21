@@ -39,8 +39,13 @@ class TweetsStream(TwitterStream):
         from_filter = " OR ".join([f"from:{user_id}" for user_id in user_ids])
         to_filter = " OR ".join([f"to:{user_id}" for user_id in user_ids])
         retweet_filter = " OR ".join([f"retweets_of:{user_id}" for user_id in user_ids])
-        url_filter = " OR ".join([f"url:{url_pattern}" for url_pattern in url_patterns])
-        query_elements = [from_filter, to_filter, retweet_filter, url_filter]
+
+        if url_patterns:
+            url_filter = " OR ".join([f"url:{url_pattern}" for url_pattern in url_patterns])
+            query_elements = [from_filter, to_filter, retweet_filter, url_filter]
+        else:
+            query_elements = [from_filter, to_filter, retweet_filter]
+
         return f" OR ".join(query_elements)
 
     def get_additional_url_params(self):
