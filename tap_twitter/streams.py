@@ -31,7 +31,14 @@ class TweetsStream(TwitterStream):
         "created_at",
         "entities",
         "geo",
+        "in_reply_to_user_id",
+        "lang",
+        "possibly_sensitive",
         "public_metrics",
+        "referenced_tweets",
+        "reply_settings",
+        "source",
+        "withheld",
     ]
     user_fields: List[str] = [
         "id",
