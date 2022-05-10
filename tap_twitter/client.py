@@ -1,9 +1,11 @@
 """REST client handling, including TwitterStream base class."""
 
+import backoff
 import requests
 from pathlib import Path
-from typing import Any, Dict, Optional, Union, List, Iterable
+from typing import Any, Callable, Dict, Optional
 
+from singer_sdk.exceptions import RetriableAPIError
 from singer_sdk.helpers.jsonpath import extract_jsonpath
 from singer_sdk.streams import RESTStream
 from singer_sdk.authenticators import BearerTokenAuthenticator
@@ -35,6 +37,29 @@ class TwitterStream(RESTStream):
         if "user_agent" in self.config:
             headers["User-Agent"] = self.config.get("user_agent")
         return headers
+
+    def request_decorator(self, func: Callable) -> Callable:
+        """Instantiate a decorator for handling request failures.
+
+        Developers may override this method to provide custom backoff or retry
+        handling.
+
+        Args:
+            func: Function to decorate.
+
+        Returns:
+            A decorated method.
+        """
+        decorator: Callable = backoff.on_exception(
+            backoff.expo,
+            (
+                RetriableAPIError,
+                requests.exceptions.HTTPError,
+            ),
+            max_tries=5,
+            factor=2,
+        )(func)
+        return decorator
 
     def get_next_page_token(
         self, response: requests.Response, previous_token: Optional[Any]
