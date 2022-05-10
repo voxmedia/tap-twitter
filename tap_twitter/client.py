@@ -6,7 +6,7 @@ import requests
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, Optional
 
-from singer_sdk.exceptions import FatalAPIError
+from singer_sdk.exceptions import FatalAPIError, RetriableAPIError
 from singer_sdk.helpers.jsonpath import extract_jsonpath
 from singer_sdk.streams import RESTStream
 from singer_sdk.authenticators import BearerTokenAuthenticator
@@ -55,10 +55,11 @@ class TwitterStream(RESTStream):
             backoff.expo,
             (
                 FatalAPIError,
-                requests.exceptions.HTTPError,
+                RetriableAPIError,
+                requests.exceptions.RequestException,
             ),
-            max_tries=9,
-            max_time=1950,
+            # max_tries=9,
+            # max_time=1950,
             base=30,
             factor=5,
         )(func)
