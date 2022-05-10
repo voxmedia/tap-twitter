@@ -59,7 +59,7 @@ class TwitterStream(RESTStream):
             ),
             max_tries=9,
             max_time=1950,
-            base=9,
+            base=30,
             factor=5,
         )(func)
         return decorator
