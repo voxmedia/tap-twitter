@@ -56,8 +56,10 @@ class TwitterStream(RESTStream):
                 FatalAPIError,
                 requests.exceptions.HTTPError,
             ),
-            max_tries=5,
-            factor=2,
+            max_tries=9,
+            max_time=950,
+            base=9,
+            factor=5,
         )(func)
         return decorator
 
