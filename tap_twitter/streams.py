@@ -50,9 +50,15 @@ class TweetsStream(TwitterStream):
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
         record = response.json()
-        users_lookup = {user["id"]: user for user in record["includes"]["users"]}
+        if "includes" in record.keys():
+            users_lookup = {user["id"]: user for user in record["includes"]["users"]}
+        else:
+            users_lookup = None
         for i, tweet in enumerate(record["data"]):
-            tweet["expansion__author_id"] = users_lookup[tweet["author_id"]]
+            if users_lookup:
+                tweet["expansion__author_id"] = users_lookup[tweet["author_id"]]
+            else:
+                tweet["expansion__author_id"] = None
             yield tweet
 
     def make_query(self) -> str:
@@ -68,7 +74,7 @@ class TweetsStream(TwitterStream):
         else:
             query_elements = [from_filter, to_filter, retweet_filter]
 
-        return f" OR ".join(query_elements)
+        return " OR ".join(query_elements)
 
     def get_additional_url_params(self):
         return {
