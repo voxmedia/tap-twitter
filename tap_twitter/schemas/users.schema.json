@@ -159,6 +159,42 @@
           ]
         }
       }
+    },
+    "profile_image_url": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "name": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "username": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "verified": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "description": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "url": {
+      "type": [
+        "null",
+        "string"
+      ]
     }
   }
 }
