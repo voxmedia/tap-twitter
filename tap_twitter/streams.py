@@ -54,7 +54,7 @@ class TweetsStream(TwitterStream):
             users_lookup = {user["id"]: user for user in record["includes"]["users"]}
         else:
             users_lookup = None
-        for i, tweet in enumerate(record["data"]):
+        for i, tweet in enumerate(record.get("data", [])):
             if users_lookup:
                 tweet["expansion__author_id"] = users_lookup[tweet["author_id"]]
             else:
