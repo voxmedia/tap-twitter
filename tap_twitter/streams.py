@@ -1,15 +1,13 @@
 """Stream type classes for tap-twitter."""
 
-import logging
 from pathlib import Path
-from typing import Any, Dict, Optional, Union, List, Iterable
+from typing import Any, Dict, List, Iterable
 
 import requests
 
 from tap_twitter.client import TwitterStream
 
 
-# TODO: Delete this is if not using json files for schema definition
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 
 

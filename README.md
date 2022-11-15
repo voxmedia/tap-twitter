@@ -1,22 +1,37 @@
-# tap-twitter
+# `tap-twitter`
 
-`tap-twitter` is a Singer tap for Twitter.
+Twitter tap class.
 
-Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
+Built with the [Meltano SDK](https://sdk.meltano.com) for Singer Taps and Targets.
+
+## Capabilities
+
+* `catalog`
+* `state`
+* `discover`
+* `about`
+* `stream-maps`
+
+## Settings
+
+| Setting     | Required | Default | Description |
+|:------------|:--------:|:-------:|:------------|
+| bearer_token| True     | None    | The bearer token to authenticate against the Twitter API using the OAuth 2.0 flow outlined here - https://developer.twitter.com/en/docs/authentication/oauth-2-0/application-only  |
+| user_ids    | True     | None    | List of user IDs of Twitter accounts for which to fetch data |
+| url_patterns| False    | None    | List of URL patterns for which to fetch tweets |
+| start_date  | False    | None    | The earliest record date to sync |
+
+A full list of supported settings and capabilities is available by running: `tap-twitter --about`
 
 ## Installation
 
-- [ ] `Developer TODO:` Update the below as needed to correctly describe the install procedure. For instance, if you do not have a PyPi repo, or if you want users to directly install from your git repo, you can modify this step as appropriate.
-
 ```bash
-pipx install tap-twitter
+pipx install git+https://github.com/voxmedia/tap-twitter.git
 ```
 
 ## Configuration
 
 ### Accepted Config Options
-
-- [ ] `Developer TODO:` Provide a list of config options accepted by the tap.
 
 A full list of supported settings and capabilities for this
 tap is available by running:
@@ -27,7 +42,8 @@ tap-twitter --about
 
 ### Source Authentication and Authorization
 
-- [ ] `Developer TODO:` If your tap requires special access on the source system, or any special authentication requirements, provide those here.
+This tap requires a Twitter developer account. Visit [Twitter Apps](https://apps.twitter.com/) to set one up and get credentials.
+
 
 ## Usage
 
@@ -40,10 +56,6 @@ tap-twitter --version
 tap-twitter --help
 tap-twitter --config CONFIG --discover > ./catalog.json
 ```
-
-## Developer Resources
-
-- [ ] `Developer TODO:` As a first step, scan the entire project for the text "`TODO:`" and complete any recommended steps, deleting the "TODO" references once completed.
 
 ### Initialize your Development Environment
 
